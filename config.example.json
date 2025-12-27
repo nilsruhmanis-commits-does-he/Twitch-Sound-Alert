@@ -1,0 +1,13 @@
+{
+    "twitch_channel": "your_channel_name",
+    "oauth_token": "oauth:your_token_here",
+    "bot_username": "your_bot_username",
+    "triggers": {
+        "!hello": "sounds/hello.wav",
+        "!welcome": "sounds/welcome.wav",
+        "!gg": "sounds/gg.mp3",
+        "!wow": "sounds/wow.ogg"
+    },
+    "reconnect_delay": 5,
+    "max_reconnect_delay": 300
+}
