@@ -226,3 +226,78 @@ For issues, questions, or suggestions, please open an issue on GitHub.
 ---
 
 Made with ❤️ for the Twitch community
+# Twitch Sound Alert 
+
+A lightweight Twitch IRC bot that plays custom sounds when specific trigger phrases appear in chat. Features both a user-friendly GUI and a standalone CLI version.
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Python](https://img.shields.io/badge/python-3.8+-green)
+![License](https://img.shields.io/badge/license-MIT-orange)
+
+## Features
+- Dual interface: GUI and CLI
+- Multi-format audio: MP3, WAV, OGG
+- Auto-reconnect with exponential backoff
+- Non-blocking daemon-thread audio playback
+- Case-insensitive trigger matching
+- Persistent config via config.json (GUI)
+
+## Quick Start
+### Windows
+```powershell
+./setup.bat
+./venv/Scripts/Activate.ps1
+$env:TWITCH_OAUTH_TOKEN = "oauth:YOUR_TOKEN_HERE"
+python twitch-alert-gui.py   # or python twitch-sound-alert.py
+```
+### Linux/Mac
+```bash
+bash setup.sh
+source venv/bin/activate
+export TWITCH_OAUTH_TOKEN="oauth:YOUR_TOKEN_HERE"
+python twitch-alert-gui.py   # or python twitch-sound-alert.py
+```
+
+### Run without a virtual environment
+If you prefer the system interpreter, set `SKIP_VENV=1` when running setup scripts, or install deps directly:
+- Windows (PowerShell): `set SKIP_VENV=1 && ./setup.bat` or `python -m pip install -r requirements.txt`
+- Linux/Mac: `SKIP_VENV=1 bash setup.sh` or `python3 -m pip install -r requirements.txt`
+
+## Configuration
+- GUI: fill fields in twitch-alert-gui.py and click Save/Start; persists to config.json
+- CLI: edit USERNAME, CHANNEL, TRIGGER_CODE, SOUND_FILE at top of twitch-sound-alert.py
+- OAuth token: set TWITCH_OAUTH_TOKEN env var; never commit tokens
+
+## Audio Backends
+Preferred: pygame (MP3/OGG/WAV)
+Fallbacks: winsound (Windows WAV), simpleaudio (WAV), noop
+
+## Architecture
+```
+config.json → GUI/CLI → TwitchListener → Twitch IRC → Message Parser → Sound Player
+```
+- IRC via raw sockets to irc.chat.twitch.tv:6667
+- `PING`/`PONG` keepalive handled automatically
+- Trigger detection in twitch_listener.py message loop; sound plays on daemon thread
+
+## Project Structure
+- twitch-sound-alert.py — CLI
+- twitch-alert-gui.py — GUI (Tkinter)
+- twitch_listener.py — Core listener class
+- config.example.json — template config
+- setup.bat / setup.sh — setup scripts
+- .github/copilot-instructions.md — AI/dev architecture guide
+
+## Troubleshooting
+- Token must start with `oauth:`
+- Channel name without leading `#`
+- Install pygame for MP3/OGG
+- Use WAV if fallbacks only
+- Check file paths exist and readable
+
+## Creator
+- E-mail: nilsruhmanis@gmail.com
+- BTC: bc1q6s6697nu4eq9yx9sfgw6t6uguu3pp0r86uxuwt
+  
+## License
+MIT. See LICENSE.

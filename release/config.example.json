@@ -1,0 +1,6 @@
+{
+  "username": "your_bot_username",
+  "channel": "channel_to_join",
+  "trigger_code": "!alert",
+  "sound_file": "sound.wav"
+}
