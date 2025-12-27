@@ -41,8 +41,9 @@ venv.bak/
 # Configuration
 config.json
 
-# Sounds directory
-sounds/
+# Sounds directory - but keep README
+sounds/*
+!sounds/README.md
 
 # Logs
 *.log
